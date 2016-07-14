@@ -1,0 +1,55 @@
+#!/usr/bin/env php
+<?php
+/**
+ * A console application that allows mite users to track their time.
+ * Copyright (C) <2016>  <Lars Rackwitz-Rosenberg>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+// Set to run indefinitely if needed
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
+set_time_limit(0);
+
+// Include composer autoloader
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$input = new Symfony\Component\Console\Input\ArgvInput();
+$output = new Symfony\Component\Console\Output\ConsoleOutput();
+
+// Determine the environment
+$env = $input->getParameterOption(['--env', '-e'], getenv('MITE_CLI_ENV') ?: 'prod');
+
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../config'));
+if (file_exists(__DIR__ . '/../config/config.yml')) {
+    $loader->load('config.yml');
+} else {
+    print 'Please create a "config.yml" at "' . __DIR__ . '/../config" with the following content:' . "\n" .
+          'parameters:' . "\n" .
+          "\t" . 'mite.account_name: ' . "\n" .
+          "\t" . 'mite.api_key: ' . "\n\n" .
+          'to be able to use the mite client.' . "\n"
+    ;
+    exit;
+}
+$loader->load('services.yml');
+
+// Create and run our application.
+$app = $container->get('mite.application');
+$app->run();
+?>

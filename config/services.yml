@@ -1,0 +1,155 @@
+services:
+    mite.application:
+        class: lrackwitz\mite\MiteApplication
+        calls:
+            - [add, ['@command.read_account']]
+            - [add, ['@command.read_myself']]
+            - [add, ['@command.read_time_entries']]
+            - [add, ['@command.create_time_entry']]
+            - [add, ['@command.edit_time_entry']]
+            - [add, ['@command.delete_time_entry']]
+            - [add, ['@command.read_tracker']]
+            - [add, ['@command.stop_tracking']]
+            - [add, ['@command.start_tracking']]
+
+    mite.client:
+        class: lrackwitz\mite\Service\MiteClient
+        arguments:
+            - '@mite.application'
+            - '@request_factory'
+            - '%mite.account_name%'
+            - '%mite.api_key%'
+
+    builder.account_resource:
+        class: lrackwitz\mite\Service\Builder\AccountResourceBuilder
+
+    builder.time_entry_group:
+        class: lrackwitz\mite\Service\Builder\TimeEntryGroupBuilder
+
+    builder.time_entry_resource:
+        class: lrackwitz\mite\Service\Builder\TimeEntryResourceBuilder
+
+    builder.tracking_time_entry_resource:
+        class: lrackwitz\mite\Service\Builder\TrackingTimeEntryResourceBuilder
+
+    builder.project_resource:
+        class: lrackwitz\mite\Service\Builder\ProjectResourceBuilder
+
+    builder.service_resource:
+        class: lrackwitz\mite\Service\Builder\ServiceResourceBuilder
+
+    builder.stopped_time_entry_resource:
+        class: lrackwitz\mite\Service\Builder\StoppedTimeEntryResourceBuilder
+
+    resource_director:
+        class: lrackwitz\mite\Service\ResourceDirector
+
+    resource_builder_factory:
+        class: lrackwitz\mite\Service\ResourceBuilderFactory
+
+    request_factory:
+        class: lrackwitz\mite\Service\RequestFactory
+
+    request.create_time_entry:
+        class: GuzzleHttp\Psr7\Request
+        factory: ['@request_factory', 'createRequest']
+        arguments:
+            - 'POST'
+            - '/time_entries.json'
+
+    request.read_account:
+        class: GuzzleHttp\Psr7\Request
+        factory: ['@request_factory', 'createRequest']
+        arguments:
+            - 'GET'
+            - '/account.json'
+
+    request.read_myself:
+        class: GuzzleHttp\Psr7\Request
+        factory: ['@request_factory', 'createRequest']
+        arguments:
+            - 'GET'
+            - '/myself.json'
+
+    request.read_tracker:
+        class: GuzzleHttp\Psr7\Request
+        factory: ['@request_factory', 'createRequest']
+        arguments:
+            - 'GET'
+            - '/tracker.json'
+
+    command_helper:
+        class: lrackwitz\mite\Service\CommandHelper
+        arguments:
+            - '@mite.client'
+            - '@resource_director'
+            - '@resource_builder_factory'
+
+    command.read_account:
+        class: lrackwitz\mite\Command\ReadAccountCommand
+        arguments:
+            - '@mite.client'
+            - '@resource_director'
+            - '@builder.account_resource'
+            - '@request.read_account'
+        tags:
+            - { name: console.command }
+
+    command.read_myself:
+        class: lrackwitz\mite\Command\ReadMyselfCommand
+        arguments:
+            - '@mite.client'
+            - '@request.read_myself'
+        tags:
+            - { name: console.command }
+
+    command.read_time_entries:
+        class: lrackwitz\mite\Command\ReadTimeEntriesCommand
+        arguments:
+            - '@command_helper'
+            - '@request_factory'
+        tags:
+            - { name: console.command }
+
+    command.create_time_entry:
+        class: lrackwitz\mite\Command\CreateTimeEntryCommand
+        arguments:
+            - '@command_helper'
+        tags:
+            - { name: console.command }
+
+    command.edit_time_entry:
+        class: lrackwitz\mite\Command\EditTimeEntryCommand
+        arguments:
+            - '@command_helper'
+        tags:
+            - { name: console.command }
+
+    command.delete_time_entry:
+        class: lrackwitz\mite\Command\DeleteTimeEntryCommand
+        arguments:
+            - '@mite.client'
+            - '@request_factory'
+        tags:
+            - { name: console.command }
+
+    command.read_tracker:
+        class: lrackwitz\mite\Command\ReadTrackerCommand
+        arguments:
+            - '@command_helper'
+        tags:
+            - { name: console.command }
+
+    command.stop_tracking:
+        class: lrackwitz\mite\Command\StopTrackingCommand
+        arguments:
+            - '@command_helper'
+        tags:
+            - { name: console.command }
+
+    command.start_tracking:
+            class: lrackwitz\mite\Command\StartTrackingCommand
+            arguments:
+                - '@command_helper'
+            tags:
+                - { name: console.command }

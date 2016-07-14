@@ -1,0 +1,27 @@
+{
+    "name": "lrackwitz/mite",
+    "description": "A console application that allows mite users to track their time.",
+    "require": {
+        "symfony/console": "^3.1",
+        "symfony/http-foundation": "^3.1",
+        "symfony/dependency-injection": "^3.1",
+        "symfony/yaml": "^3.1",
+        "symfony/config": "^3.1",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "license": "GNU General Public License, version 3 (GPL-3.0)",
+    "authors": [
+        {
+            "name": "Lars Rackwitz-Rosenberg",
+            "email": "rackwitz.lars@gmail.com"
+        }
+    ],
+    "config": {
+        "preferred-install": "source"
+    },
+    "autoload": {
+        "psr-4": {
+            "lrackwitz\\mite\\": "src/"
+        }
+    }
+}
