@@ -41,5 +41,5 @@ Lars Rackwitz-Rosenberg - <rackwitz.lars@gmail.com>
 
 License
 -------
-This mite client is licensed under the GPLv3 License - see the LICENSE file for details
+This mite client is licensed under the GPLv3 License - see the LICENSE file for details.
 
