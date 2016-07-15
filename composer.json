@@ -1,6 +1,6 @@
 {
-    "name": "lrackwitz/mite",
-    "description": "A console application that allows mite users to track their time.",
+    "name": "lrackwitz/mite-client",
+    "description": "A mite client for time tracking with the console.",
     "require": {
         "symfony/console": "^3.1",
         "symfony/http-foundation": "^3.1",
