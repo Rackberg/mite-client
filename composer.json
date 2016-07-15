@@ -7,7 +7,7 @@
         "symfony/dependency-injection": "^3.1",
         "symfony/yaml": "^3.1",
         "symfony/config": "^3.1",
-        "guzzlehttp/guzzle": ">=5.2"
+        "guzzlehttp/guzzle": "^6.0"
     },
     "license": "GPL-3.0",
     "authors": [
