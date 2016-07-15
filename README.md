@@ -8,7 +8,7 @@ can change anytime you do a `composer update`.
 Installation
 ------------
 - Download [Composer](https://getcomposer.org/download/): `curl -sS https://getcomposer.org/composer.phar -o composer.phar`
-- Install: `php composer.phar require global lrackwitz/mite`
+- Install: `php composer.phar global require lrackwitz/mite-client`
 
 Configuration
 -------------
