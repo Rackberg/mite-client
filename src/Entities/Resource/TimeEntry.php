@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class TimeEntry extends Loggable implements ResourceInterface
+class TimeEntry extends Loggable implements TimeEntryInterface
 {
     /**
      * The time entry id.
@@ -241,9 +241,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns id.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -251,7 +249,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $id
+     * {@inheritDoc}
      */
     public function setId($id = null)
     {
@@ -259,9 +257,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns minutes.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getMinutes()
     {
@@ -269,7 +265,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $minutes
+     * {@inheritDoc}
      */
     public function setMinutes($minutes = null)
     {
@@ -277,9 +273,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns dateAt.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getDateAt()
     {
@@ -287,7 +281,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $dateAt
+     * {@inheritDoc}
      */
     public function setDateAt($dateAt = null)
     {
@@ -295,9 +289,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns note.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getNote()
     {
@@ -305,7 +297,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $note
+     * {@inheritDoc}
      */
     public function setNote($note = null)
     {
@@ -313,9 +305,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns billable.
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
     public function isBillable()
     {
@@ -323,17 +313,15 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param boolean $billable
+     * {@inheritDoc}
      */
-    public function setBillable(bool $billable)
+    public function setBillable(bool $billable = false)
     {
         $this->billable = $billable;
     }
 
     /**
-     * Returns locked.
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
     public function isLocked()
     {
@@ -341,17 +329,15 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param boolean $locked
+     * {@inheritDoc}
      */
-    public function setLocked(bool $locked)
+    public function setLocked(bool $locked = false)
     {
         $this->locked = $locked;
     }
 
     /**
-     * Returns revenue.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getRevenue()
     {
@@ -359,7 +345,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $revenue
+     * {@inheritDoc}
      */
     public function setRevenue($revenue = null)
     {
@@ -367,9 +353,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns hourlyRate.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getHourlyRate()
     {
@@ -377,7 +361,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $hourlyRate
+     * {@inheritDoc}
      */
     public function setHourlyRate($hourlyRate = null)
     {
@@ -385,9 +369,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns userId.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getUserId()
     {
@@ -395,7 +377,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $userId
+     * {@inheritDoc}
      */
     public function setUserId($userId = null)
     {
@@ -403,9 +385,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns userName.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getUserName()
     {
@@ -413,7 +393,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $userName
+     * {@inheritDoc}
      */
     public function setUserName($userName = null)
     {
@@ -421,9 +401,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns projectId.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getProjectId()
     {
@@ -431,7 +409,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $projectId
+     * {@inheritDoc}
      */
     public function setProjectId($projectId = null)
     {
@@ -439,9 +417,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns projectName.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getProjectName()
     {
@@ -449,7 +425,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $projectName
+     * {@inheritDoc}
      */
     public function setProjectName($projectName = null)
     {
@@ -457,16 +433,14 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $customerId
+     * {@inheritDoc}
      */
     public function setCustomerId($customerId = null) {
         $this->customerId = $customerId;
     }
 
     /**
-     * Returns customerId.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getCustomerId()
     {
@@ -474,9 +448,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns customerName.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getCustomerName()
     {
@@ -484,7 +456,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $customerName
+     * {@inheritDoc}
      */
     public function setCustomerName($customerName = null)
     {
@@ -492,9 +464,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns serviceId.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getServiceId()
     {
@@ -502,7 +472,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $serviceId
+     * {@inheritDoc}
      */
     public function setServiceId($serviceId = null)
     {
@@ -510,9 +480,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns serviceName.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getServiceName()
     {
@@ -520,7 +488,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $serviceName
+     * {@inheritDoc}
      */
     public function setServiceName($serviceName = null)
     {
@@ -528,9 +496,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns createdAt.
-     *
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getCreatedAt()
     {
@@ -538,7 +504,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param \DateTime $createdAt
+     * {@inheritDoc}
      */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
@@ -546,9 +512,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns updatedAt.
-     *
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getUpdatedAt()
     {
@@ -556,7 +520,7 @@ class TimeEntry extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * {@inheritDoc}
      */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
