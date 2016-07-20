@@ -258,7 +258,7 @@ class ReadTimeEntriesCommand extends Command
         $items = json_decode($response->getBody()->getContents(), true);
 
         $table = new Table($output);
-        $table->setHeaders(['ID', 'Project / Comment', 'Service', 'Time Tracked', 'Tracking']);
+        $table->setHeaders(['ID', 'Project / Comment', 'Service', 'Time Tracked', 'Status']);
 
         $formatter = $this->getHelper('formatter');
 
