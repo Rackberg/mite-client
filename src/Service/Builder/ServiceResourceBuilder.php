@@ -21,15 +21,16 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
 use lrackwitz\mite\Entities\Resource\Service;
+use lrackwitz\mite\Entities\Resource\ServiceInterface;
 
 /**
  * Class ServiceResourceBuilder.
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class ServiceResourceBuilder extends AbstractResourceBuilder
+class ServiceResourceBuilder implements BuilderInterface, ServiceInterface
 {
     /**
      * The service resource.
@@ -38,53 +39,101 @@ class ServiceResourceBuilder extends AbstractResourceBuilder
      */
     private $service;
 
-    public function __construct()
+    /**
+     * Creates a new service instance.
+     */
+    public function create()
     {
         $this->service = new Service();
     }
 
-    public function setBillable(bool $billable)
+    /**
+     * Returns the built service instance.
+     *
+     * @return ServiceInterface
+     */
+    public function getResult()
     {
-        $this->service->setBillable($billable);
+        return $this->service;
     }
 
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->service->setCreatedAt($createdAt);
-    }
-
-    public function setHourlyRate($hourlyRate = null)
-    {
-        $this->service->setHourlyRate($hourlyRate);
-    }
-
+    /**
+     * Sets the id.
+     *
+     * @param int $id
+     */
     public function setId($id = null)
     {
         $this->service->setId($id);
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param string $name
+     */
     public function setName($name = null)
     {
         $this->service->setName($name);
     }
 
+    /**
+     * Sets the note.
+     *
+     * @param string $note
+     */
     public function setNote($note = null)
     {
         $this->service->setNote($note);
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt = null)
+    /**
+     * Sets the hourly rate.
+     *
+     * @param int $hourlyRate
+     */
+    public function setHourlyRate($hourlyRate = null)
     {
-        $this->service->setUpdatedAt($updatedAt);
+        $this->service->setHourlyRate($hourlyRate);
     }
 
-    public function setArchived(bool $archived = null)
+    /**
+     * Sets the archived flag.
+     *
+     * @param bool $archived
+     */
+    public function setArchived(bool $archived = false)
     {
         $this->service->setArchived($archived);
     }
 
-    public function getResult()
+    /**
+     * Sets the billable flag.
+     *
+     * @param bool $billable
+     */
+    public function setBillable(bool $billable = false)
     {
-        return $this->service;
+        $this->service->setBillable($billable);
+    }
+
+    /**
+     * Sets the date and time of creation.
+     *
+     * @param \DateTime $createdAt
+     */
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->service->setCreatedAt($createdAt);
+    }
+
+    /**
+     * Sets the date and time of last update.
+     *
+     * @param \DateTime $updatedAt
+     */
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->service->setUpdatedAt($updatedAt);
     }
 }

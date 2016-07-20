@@ -21,7 +21,8 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
+use lrackwitz\mite\Entities\Resource\TimeEntryGroupInterface;
 use lrackwitz\mite\Entities\TimeEntryGroup;
 
 /**
@@ -29,7 +30,7 @@ use lrackwitz\mite\Entities\TimeEntryGroup;
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class TimeEntryGroupBuilder extends AbstractResourceBuilder
+class TimeEntryGroupBuilder implements BuilderInterface, TimeEntryGroupInterface
 {
     /**
      * The time entry group.
@@ -38,43 +39,81 @@ class TimeEntryGroupBuilder extends AbstractResourceBuilder
      */
     private $timeEntryGroup;
 
-    public function __construct()
+    /**
+     * Creates a new time entry group instance.
+     */
+    public function create()
     {
         $this->timeEntryGroup = new TimeEntryGroup();
     }
 
+    /**
+     * Returns the built time entry group instance.
+     *
+     * @return TimeEntryGroupInterface
+     */
+    public function getResult()
+    {
+        return $this->timeEntryGroup;
+    }
+
+    /**
+     * Sets the minutes.
+     *
+     * @param int $minutes
+     */
     public function setMinutes($minutes = null)
     {
         $this->timeEntryGroup->setMinutes($minutes);
     }
 
-    public function setProjectId($projectId = null)
-    {
-        $this->timeEntryGroup->setProjectId($projectId);
-    }
-
-    public function setProjectName($projectName = null)
-    {
-        $this->timeEntryGroup->setProjectName($projectName);
-    }
-
+    /**
+     * Sets the revenue.
+     *
+     * @param string $revenue
+     */
     public function setRevenue($revenue = null)
     {
         $this->timeEntryGroup->setRevenue($revenue);
     }
 
+    /**
+     * Sets the project id.
+     *
+     * @param int $projectId
+     */
+    public function setProjectId($projectId = null)
+    {
+        $this->timeEntryGroup->setProjectId($projectId);
+    }
+
+    /**
+     * Sets the project name.
+     *
+     * @param string $projectName
+     */
+    public function setProjectName($projectName = null)
+    {
+        $this->timeEntryGroup->setProjectName($projectName);
+    }
+
+    /**
+     * Sets the month.
+     *
+     * @param string $month
+     */
     public function setMonth($month = null)
     {
         $this->timeEntryGroup->setMonth($month);
     }
 
+    /**
+     * Sets the parameters.
+     *
+     * @param array $params
+     */
     public function setParams(array $params = array())
     {
         $this->timeEntryGroup->setParams($params);
-    }
-
-    public function getResult()
-    {
-        return $this->timeEntryGroup;
     }
 }

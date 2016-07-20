@@ -21,15 +21,16 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
 use lrackwitz\mite\Entities\Resource\Account;
+use lrackwitz\mite\Entities\Resource\AccountInterface;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
 
 /**
  * Class AccountResourceBuilder.
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class AccountResourceBuilder extends AbstractResourceBuilder
+class AccountResourceBuilder implements BuilderInterface, AccountInterface
 {
     /**
      * The account resource.
@@ -38,43 +39,69 @@ class AccountResourceBuilder extends AbstractResourceBuilder
      */
     private $account;
 
+    /**
+     * Creates a new account instance.
+     */
     public function create()
     {
         $this->account = new Account();
     }
 
+    /**
+     * Returns the build account instance.
+     *
+     * @return AccountInterface
+     */
+    public function getResult()
+    {
+        return $this->account;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setId($id = null)
     {
         $this->account->setId($id);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setName($name = null)
     {
         $this->account->setName($name);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setTitle($title = null)
     {
         $this->account->setTitle($title);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setCurrency($currency = null)
     {
         $this->account->setCurrency($currency);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->account->setCreatedAt($createdAt);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->account->setUpdatedAt($updatedAt);
-    }
-
-    public function getResult()
-    {
-        return $this->account;
     }
 }

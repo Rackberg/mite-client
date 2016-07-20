@@ -21,15 +21,16 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
 use lrackwitz\mite\Entities\Resource\Project;
+use lrackwitz\mite\Entities\Resource\ProjectInterface;
 
 /**
  * Class ProjectResourceBuilder.
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class ProjectResourceBuilder extends AbstractResourceBuilder
+class ProjectResourceBuilder implements BuilderInterface, ProjectInterface
 {
     /**
      * The project resource.
@@ -38,76 +39,149 @@ class ProjectResourceBuilder extends AbstractResourceBuilder
      */
     private $project;
 
-    public function __construct()
+    /**
+     * Creates a new project instance.
+     */
+    public function create()
     {
         $this->project = new Project();
     }
 
+    /**
+     * Sets the project id.
+     *
+     * @param int $id
+     */
     public function setId($id = null)
     {
         $this->project->setId($id);
     }
 
+    /**
+     * Sets the name.
+     *
+     * @param string $name
+     */
     public function setName($name = null)
     {
         $this->project->setName($name);
     }
 
+    /**
+     * Sets the note.
+     *
+     * @param string $note
+     */
     public function setNote($note = null)
     {
         $this->project->setNote($note);
     }
 
+    /**
+     * Sets the customer id.
+     *
+     * @param int $customerId
+     */
     public function setCustomerId($customerId = null)
     {
         $this->project->setCustomerId($customerId);
     }
 
+    /**
+     * Sets the customer name.
+     *
+     * @param string $customerName
+     */
     public function setCustomerName($customerName = null)
     {
         $this->project->setCustomerName($customerName);
     }
 
+    /**
+     * Sets the hourly rate.
+     *
+     * @param string $hourlyRate
+     */
     public function setHourlyRate($hourlyRate = null)
     {
         $this->project->setHourlyRate($hourlyRate);
     }
 
+    /**
+     * Sets the active hourly rate.
+     *
+     * @param string $activeHourlyRate
+     */
     public function setActiveHourlyRate($activeHourlyRate = null)
     {
         $this->project->setActiveHourlyRate($activeHourlyRate);
     }
 
+    /**
+     * Sets the hourly rates per service.
+     *
+     * @param array $hourlyRatesPerService
+     */
     public function setHourlyRatesPerService(array $hourlyRatesPerService = array())
     {
         $this->project->setHourlyRatesPerService($hourlyRatesPerService);
     }
 
+    /**
+     * Sets the budget.
+     *
+     * @param int $budget
+     */
     public function setBudget($budget = null)
     {
         $this->project->setBudget($budget);
     }
 
+    /**
+     * Sets the budget type.
+     *
+     * @param string $budgetType
+     */
     public function setBudgetType($budgetType = null)
     {
         $this->project->setBudgetType($budgetType);
     }
 
+    /**
+     * Sets the archived flag.
+     *
+     * @param bool $archived
+     */
     public function setArchived(bool $archived = null)
     {
         $this->project->setArchived($archived);
     }
 
+    /**
+     * Sets the date and time of creation.
+     *
+     * @param \DateTime $createdAt
+     */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->project->setCreatedAt($createdAt);
     }
 
+    /**
+     * Sets the date and time of last update.
+     *
+     * @param \DateTime $updatedAt
+     */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->project->setUpdatedAt($updatedAt);
     }
 
+    /**
+     * Returns the built project instance.
+     *
+     * @return \lrackwitz\mite\Entities\Resource\ProjectInterface
+     */
     public function getResult()
     {
         return $this->project;

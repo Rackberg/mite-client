@@ -21,15 +21,16 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
 use lrackwitz\mite\Entities\Resource\TrackingTimeEntry;
+use lrackwitz\mite\Entities\Resource\TrackingTimeEntryInterface;
 
 /**
  * Class TrackingTimeEntryResourceBuilder.
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class TrackingTimeEntryResourceBuilder extends AbstractResourceBuilder
+class TrackingTimeEntryResourceBuilder implements BuilderInterface, TrackingTimeEntryInterface
 {
     /**
      * The tracking time entry.
@@ -38,29 +39,51 @@ class TrackingTimeEntryResourceBuilder extends AbstractResourceBuilder
      */
     private $trackingTimeEntry;
 
-    public function __construct()
+    /**
+     * Creates a new tracking time entry resource.
+     */
+    public function create()
     {
         $this->trackingTimeEntry = new TrackingTimeEntry();
     }
 
+    /**
+     * Returns the built tracking time resource instance.
+     *
+     * @return TrackingTimeEntryInterface
+     */
+    public function getResult()
+    {
+        return $this->trackingTimeEntry;
+    }
+
+    /**
+     * Sets the id.
+     *
+     * @param int $id
+     */
     public function setId($id = null)
     {
         $this->trackingTimeEntry->setId($id);
     }
 
+    /**
+     * Sets the minutes.
+     *
+     * @param int $minutes
+     */
     public function setMinutes($minutes = null)
     {
         $this->trackingTimeEntry->setMinutes($minutes);
     }
 
+    /**
+     * Sets the date and time sind start of tracking.
+     *
+     * @param \DateTime $since
+     */
     public function setSince(\DateTime $since = null)
     {
         $this->trackingTimeEntry->setSince($since);
-    }
-
-
-    public function getResult()
-    {
-        return $this->trackingTimeEntry;
     }
 }
