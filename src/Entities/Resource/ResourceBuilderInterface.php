@@ -21,10 +21,10 @@
  */
 namespace lrackwitz\mite\Entities\Resource;
 
-interface ResourceBuilderInterface
+interface ResourceBuilderInterface extends BuilderInterface
 {
     public function setBillable(bool $billable);
-    public function setCreatedAt(\DateTime $createdAt = null);
+
     public function setCurrency($currency = null);
     public function setCustomerId($customerId = null);
     public function setCustomerName($customerName = null);
@@ -42,8 +42,7 @@ interface ResourceBuilderInterface
     public function setRevenue($revenue = null);
     public function setServiceId($serviceId = null);
     public function setTitle($title = null);
-    public function setUpdatedAt(\DateTime $updatedAt = null);
-    public function setUserId($userId = null);
+
     public function setUserName($userName = null);
     public function setServiceName($serviceName = null);
     public function setMonth($month = null);
@@ -53,5 +52,10 @@ interface ResourceBuilderInterface
     public function setBudgetType($budgetType = null);
     public function setArchived(bool $archived = null);
 
-    public function getResult();
+
+
+    public function setUserId($userId = null);
+
+    public function setCreatedAt(\DateTime $createdAt = null);
+    public function setUpdatedAt(\DateTime $updatedAt = null);
 }

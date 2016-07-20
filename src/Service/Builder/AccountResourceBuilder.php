@@ -38,7 +38,7 @@ class AccountResourceBuilder extends AbstractResourceBuilder
      */
     private $account;
 
-    public function __construct()
+    public function create()
     {
         $this->account = new Account();
     }
