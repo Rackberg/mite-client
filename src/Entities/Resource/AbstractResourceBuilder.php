@@ -144,7 +144,5 @@ abstract class AbstractResourceBuilder implements ResourceBuilderInterface
     {
     }
 
-    abstract public function create();
-
     abstract public function getResult();
 }

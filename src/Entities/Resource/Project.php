@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Project extends Loggable implements ProjectInterface
+class Project extends Loggable implements ResourceInterface
 {
     /**
      * The project id.
@@ -187,7 +187,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns id.
+     *
+     * @return int
      */
     public function getId()
     {
@@ -195,7 +197,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $id
      */
     public function setId($id = null)
     {
@@ -203,7 +205,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -211,7 +215,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $name
      */
     public function setName($name = null)
     {
@@ -219,7 +223,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns note.
+     *
+     * @return string
      */
     public function getNote()
     {
@@ -227,7 +233,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $note
      */
     public function setNote($note = null)
     {
@@ -235,7 +241,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns customerId.
+     *
+     * @return int
      */
     public function getCustomerId()
     {
@@ -243,7 +251,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $customerId
      */
     public function setCustomerId($customerId = null)
     {
@@ -251,7 +259,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns customerName.
+     *
+     * @return string
      */
     public function getCustomerName()
     {
@@ -259,7 +269,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $customerName
      */
     public function setCustomerName($customerName = null)
     {
@@ -267,7 +277,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns budget.
+     *
+     * @return int
      */
     public function getBudget()
     {
@@ -275,7 +287,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $budget
      */
     public function setBudget($budget = null)
     {
@@ -283,7 +295,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns budgetType.
+     *
+     * @return string
      */
     public function getBudgetType()
     {
@@ -291,7 +305,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $budgetType
      */
     public function setBudgetType($budgetType = null)
     {
@@ -299,7 +313,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns hourlyRate.
+     *
+     * @return string
      */
     public function getHourlyRate()
     {
@@ -307,7 +323,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $hourlyRate
      */
     public function setHourlyRate($hourlyRate = null)
     {
@@ -315,7 +331,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns activeHourlyRate.
+     *
+     * @return string
      */
     public function getActiveHourlyRate()
     {
@@ -323,7 +341,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $activeHourlyRate
      */
     public function setActiveHourlyRate($activeHourlyRate = null)
     {
@@ -331,7 +349,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns hourlyRatesPerService.
+     *
+     * @return mixed
      */
     public function getHourlyRatesPerService()
     {
@@ -339,7 +359,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $hourlyRatesPerService
      */
     public function setHourlyRatesPerService(array $hourlyRatesPerService = array())
     {
@@ -347,7 +367,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns archived.
+     *
+     * @return boolean
      */
     public function isArchived()
     {
@@ -355,15 +377,17 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param boolean $archived
      */
-    public function setArchived(bool $archived = false)
+    public function setArchived(bool $archived)
     {
         $this->archived = $archived;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -371,7 +395,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $createdAt
      */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
@@ -379,7 +403,9 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns updatedAt.
+     *
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -387,7 +413,7 @@ class Project extends Loggable implements ProjectInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $updatedAt
      */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {

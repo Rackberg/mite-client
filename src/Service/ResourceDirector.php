@@ -32,8 +32,6 @@ class ResourceDirector
 {
     public function build(ResourceBuilderInterface $builder, array $data = [])
     {
-        $builder->create();
-
         if (array_key_exists('id', $data)) {
             $builder->setId($data['id']);
         }

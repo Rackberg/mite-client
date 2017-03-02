@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class User extends Loggable implements UserInterface
+class User extends Loggable implements ResourceInterface
 {
     /**
      * The user id.
@@ -158,7 +158,9 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns id.
+     *
+     * @return int
      */
     public function getId()
     {
@@ -166,15 +168,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $id
      */
-    public function setId($id = null)
+    public function setId($id)
     {
         $this->id = $id;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -182,15 +186,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $name
      */
-    public function setName($name = null)
+    public function setName($name)
     {
         $this->name = $name;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns email.
+     *
+     * @return string
      */
     public function getEmail()
     {
@@ -198,15 +204,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $email
      */
-    public function setEmail($email = null)
+    public function setEmail($email)
     {
         $this->email = $email;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns note.
+     *
+     * @return string
      */
     public function getNote()
     {
@@ -214,15 +222,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $note
      */
-    public function setNote($note = null)
+    public function setNote($note)
     {
         $this->note = $note;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns archived.
+     *
+     * @return boolean
      */
     public function isArchived()
     {
@@ -230,15 +240,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param boolean $archived
      */
-    public function setArchived(bool $archived = false)
+    public function setArchived($archived)
     {
         $this->archived = $archived;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns role.
+     *
+     * @return string
      */
     public function getRole()
     {
@@ -246,15 +258,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $role
      */
-    public function setRole($role = null)
+    public function setRole($role)
     {
         $this->role = $role;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns language.
+     *
+     * @return string
      */
     public function getLanguage()
     {
@@ -262,15 +276,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $language
      */
-    public function setLanguage($language = null)
+    public function setLanguage($language)
     {
         $this->language = $language;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -278,15 +294,17 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt = null)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns updatedAt.
+     *
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -294,9 +312,9 @@ class User extends Loggable implements UserInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }

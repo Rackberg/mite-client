@@ -26,7 +26,7 @@ namespace lrackwitz\mite\Entities\Resource;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-interface StoppedTimeEntryInterface
+interface StoppedTimeEntryInterface extends ResourceInterface
 {
     /**
      * Sets the id.
@@ -36,9 +36,23 @@ interface StoppedTimeEntryInterface
     public function setId($id = null);
 
     /**
+     * Returns the tracked time entry id.
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
      * Sets the minutes.
      *
      * @param int $minutes
      */
     public function setMinutes($minutes = null);
+
+    /**
+     * Returns the minutes.
+     *
+     * @return int
+     */
+    public function getMinutes();
 }

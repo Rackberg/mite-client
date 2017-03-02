@@ -21,7 +21,7 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\BuilderInterface;
+use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
 use lrackwitz\mite\Entities\Resource\StoppedTimeEntry;
 use lrackwitz\mite\Entities\Resource\StoppedTimeEntryInterface;
 
@@ -30,7 +30,7 @@ use lrackwitz\mite\Entities\Resource\StoppedTimeEntryInterface;
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class StoppedTimeEntryResourceBuilder implements BuilderInterface, StoppedTimeEntryInterface
+class StoppedTimeEntryResourceBuilder extends AbstractResourceBuilder
 {
     /**
      * The stopped time entry resource.
@@ -39,41 +39,28 @@ class StoppedTimeEntryResourceBuilder implements BuilderInterface, StoppedTimeEn
      */
     private $stoppedTimeEntry;
 
-    /**
-     * Creates a new stopped time entry instance.
-     */
-    public function create()
+    public function __construct()
     {
         $this->stoppedTimeEntry = new StoppedTimeEntry();
     }
 
-    /**
-     * Returns the built stopped time entry instance.
-     *
-     * @return StoppedTimeEntryInterface
-     */
-    public function getResult()
-    {
-        return $this->stoppedTimeEntry;
-    }
-
-    /**
-     * Sets the id.
-     *
-     * @param int $id
-     */
     public function setId($id = null)
     {
         $this->stoppedTimeEntry->setId($id);
     }
 
-    /**
-     * Sets the minutes.
-     *
-     * @param int $minutes
-     */
     public function setMinutes($minutes = null)
     {
         $this->stoppedTimeEntry->setMinutes($minutes);
+    }
+
+    /**
+     * Returns the stopped time entry resource.
+     *
+     * @return \lrackwitz\mite\Entities\Resource\StoppedTimeEntryInterface
+     */
+    public function getResult()
+    {
+        return $this->stoppedTimeEntry;
     }
 }

@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class TimeEntry extends Loggable implements TimeEntryInterface
+class TimeEntry extends Loggable implements ResourceInterface
 {
     /**
      * The time entry id.
@@ -241,7 +241,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns id.
+     *
+     * @return string
      */
     public function getId()
     {
@@ -249,7 +251,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $id
      */
     public function setId($id = null)
     {
@@ -257,7 +259,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns minutes.
+     *
+     * @return int
      */
     public function getMinutes()
     {
@@ -265,7 +269,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $minutes
      */
     public function setMinutes($minutes = null)
     {
@@ -273,7 +277,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns dateAt.
+     *
+     * @return string
      */
     public function getDateAt()
     {
@@ -281,7 +287,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $dateAt
      */
     public function setDateAt($dateAt = null)
     {
@@ -289,7 +295,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns note.
+     *
+     * @return string
      */
     public function getNote()
     {
@@ -297,7 +305,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $note
      */
     public function setNote($note = null)
     {
@@ -305,7 +313,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns billable.
+     *
+     * @return boolean
      */
     public function isBillable()
     {
@@ -313,15 +323,17 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param boolean $billable
      */
-    public function setBillable(bool $billable = false)
+    public function setBillable(bool $billable)
     {
         $this->billable = $billable;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns locked.
+     *
+     * @return boolean
      */
     public function isLocked()
     {
@@ -329,15 +341,17 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param boolean $locked
      */
-    public function setLocked(bool $locked = false)
+    public function setLocked(bool $locked)
     {
         $this->locked = $locked;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns revenue.
+     *
+     * @return string
      */
     public function getRevenue()
     {
@@ -345,7 +359,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $revenue
      */
     public function setRevenue($revenue = null)
     {
@@ -353,7 +367,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns hourlyRate.
+     *
+     * @return int
      */
     public function getHourlyRate()
     {
@@ -361,7 +377,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $hourlyRate
      */
     public function setHourlyRate($hourlyRate = null)
     {
@@ -369,7 +385,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns userId.
+     *
+     * @return int
      */
     public function getUserId()
     {
@@ -377,7 +395,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $userId
      */
     public function setUserId($userId = null)
     {
@@ -385,7 +403,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns userName.
+     *
+     * @return string
      */
     public function getUserName()
     {
@@ -393,7 +413,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $userName
      */
     public function setUserName($userName = null)
     {
@@ -401,7 +421,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns projectId.
+     *
+     * @return int
      */
     public function getProjectId()
     {
@@ -409,7 +431,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $projectId
      */
     public function setProjectId($projectId = null)
     {
@@ -417,7 +439,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns projectName.
+     *
+     * @return string
      */
     public function getProjectName()
     {
@@ -425,7 +449,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $projectName
      */
     public function setProjectName($projectName = null)
     {
@@ -433,14 +457,16 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $customerId
      */
     public function setCustomerId($customerId = null) {
         $this->customerId = $customerId;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns customerId.
+     *
+     * @return int
      */
     public function getCustomerId()
     {
@@ -448,7 +474,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns customerName.
+     *
+     * @return string
      */
     public function getCustomerName()
     {
@@ -456,7 +484,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $customerName
      */
     public function setCustomerName($customerName = null)
     {
@@ -464,7 +492,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns serviceId.
+     *
+     * @return int
      */
     public function getServiceId()
     {
@@ -472,7 +502,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $serviceId
      */
     public function setServiceId($serviceId = null)
     {
@@ -480,7 +510,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns serviceName.
+     *
+     * @return string
      */
     public function getServiceName()
     {
@@ -488,7 +520,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $serviceName
      */
     public function setServiceName($serviceName = null)
     {
@@ -496,7 +528,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -504,7 +538,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $createdAt
      */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
@@ -512,7 +546,9 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns updatedAt.
+     *
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -520,7 +556,7 @@ class TimeEntry extends Loggable implements TimeEntryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $updatedAt
      */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {

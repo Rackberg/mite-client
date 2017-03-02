@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Customer extends Loggable implements CustomerInterface
+class Customer extends Loggable implements ResourceInterface
 {
     /**
      * The customer name.
@@ -96,7 +96,9 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns name.
+     *
+     * @return string
      */
     public function getName()
     {
@@ -104,15 +106,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $name
      */
-    public function setName($name = null)
+    public function setName($name)
     {
         $this->name = $name;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns note.
+     *
+     * @return string
      */
     public function getNote()
     {
@@ -120,15 +124,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $note
      */
-    public function setNote($note = null)
+    public function setNote($note)
     {
         $this->note = $note;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns activeHourlyRate.
+     *
+     * @return string
      */
     public function getActiveHourlyRate()
     {
@@ -136,15 +142,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string $activeHourlyRate
      */
-    public function setActiveHourlyRate($activeHourlyRate = null)
+    public function setActiveHourlyRate($activeHourlyRate)
     {
         $this->activeHourlyRate = $activeHourlyRate;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns hourlyRate.
+     *
+     * @return int
      */
     public function getHourlyRate()
     {
@@ -152,15 +160,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param int $hourlyRate
      */
-    public function setHourlyRate($hourlyRate = null)
+    public function setHourlyRate($hourlyRate)
     {
         $this->hourlyRate = $hourlyRate;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns hourlyRatesPerService.
+     *
+     * @return mixed
      */
     public function getHourlyRatesPerService()
     {
@@ -168,15 +178,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $hourlyRatesPerService
      */
-    public function setHourlyRatesPerService(array $hourlyRatesPerService = array())
+    public function setHourlyRatesPerService($hourlyRatesPerService)
     {
         $this->hourlyRatesPerService = $hourlyRatesPerService;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns archived.
+     *
+     * @return boolean
      */
     public function isArchived()
     {
@@ -184,15 +196,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param boolean $archived
      */
-    public function setArchived(bool $archived = false)
+    public function setArchived($archived)
     {
         $this->archived = $archived;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -200,15 +214,17 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt = null)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns updatedAt.
+     *
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -216,9 +232,9 @@ class Customer extends Loggable implements CustomerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }

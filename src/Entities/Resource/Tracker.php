@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Tracker extends Loggable implements TrackerInterface
+class Tracker extends Loggable implements ResourceInterface
 {
     /**
      * The current tracking time entry.
@@ -66,7 +66,9 @@ class Tracker extends Loggable implements TrackerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * Returns trackingTimeEntry.
+     *
+     * @return TrackingTimeEntryInterface
      */
     public function getTrackingTimeEntry()
     {
@@ -74,15 +76,17 @@ class Tracker extends Loggable implements TrackerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param TrackingTimeEntryInterface $trackingTimeEntry
      */
-    public function setTrackingTimeEntry(TrackingTimeEntryInterface $trackingTimeEntry = null)
+    public function setTrackingTimeEntry($trackingTimeEntry = null)
     {
         $this->trackingTimeEntry = $trackingTimeEntry;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns stoppedTimeEntry.
+     *
+     * @return StoppedTimeEntryInterface
      */
     public function getStoppedTimeEntry()
     {
@@ -90,9 +94,9 @@ class Tracker extends Loggable implements TrackerInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param StoppedTimeEntryInterface $stoppedTimeEntry
      */
-    public function setStoppedTimeEntry(StoppedTimeEntryInterface $stoppedTimeEntry = null)
+    public function setStoppedTimeEntry($stoppedTimeEntry = null)
     {
         $this->stoppedTimeEntry = $stoppedTimeEntry;
     }

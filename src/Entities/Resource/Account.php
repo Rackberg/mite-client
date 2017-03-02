@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Account extends Loggable implements AccountInterface
+class Account extends Loggable implements ResourceInterface
 {
     /**
      * The account id.
@@ -122,71 +122,9 @@ class Account extends Loggable implements AccountInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setId($id = null)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setName($name = null)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setTitle($title = null)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCurrency($currency = null)
-    {
-        $this->currency = $currency;
-    }
-
-    /**
-     * {@inheritDoc}
+     * Returns createdAt.
+     *
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -194,15 +132,89 @@ class Account extends Loggable implements AccountInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $createdAt
      */
-    public function setCreatedAt(\DateTime $createdAt = null)
+    public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * {@inheritDoc}
+     * Returns id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Returns name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Returns title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Returns currency.
+     *
+     * @return string
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * Returns updatedAt.
+     *
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -210,9 +222,9 @@ class Account extends Loggable implements AccountInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param \DateTime $updatedAt
      */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
+    public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
     }
