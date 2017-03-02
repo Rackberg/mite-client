@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Service extends Loggable implements ResourceInterface
+class Service extends Loggable implements ServiceInterface
 {
     /**
      * The service id.
@@ -146,9 +146,7 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns id.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -156,17 +154,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $id
+     * {@inheritDoc}
      */
-    public function setId($id)
+    public function setId($id = null)
     {
         $this->id = $id;
     }
 
     /**
-     * Returns name.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -174,17 +170,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $name
+     * {@inheritDoc}
      */
-    public function setName($name)
+    public function setName($name = null)
     {
         $this->name = $name;
     }
 
     /**
-     * Returns note.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getNote()
     {
@@ -192,17 +186,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $note
+     * {@inheritDoc}
      */
-    public function setNote($note)
+    public function setNote($note = null)
     {
         $this->note = $note;
     }
 
     /**
-     * Returns hourlyRate.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getHourlyRate()
     {
@@ -210,17 +202,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $hourlyRate
+     * {@inheritDoc}
      */
-    public function setHourlyRate($hourlyRate)
+    public function setHourlyRate($hourlyRate = null)
     {
         $this->hourlyRate = $hourlyRate;
     }
 
     /**
-     * Returns archived.
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
     public function isArchived()
     {
@@ -228,17 +218,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param boolean $archived
+     * {@inheritDoc}
      */
-    public function setArchived($archived)
+    public function setArchived(bool $archived = false)
     {
         $this->archived = $archived;
     }
 
     /**
-     * Returns billable.
-     *
-     * @return boolean
+     * {@inheritDoc}
      */
     public function isBillable()
     {
@@ -246,17 +234,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param boolean $billable
+     * {@inheritDoc}
      */
-    public function setBillable($billable)
+    public function setBillable(bool $billable = false)
     {
         $this->billable = $billable;
     }
 
     /**
-     * Returns createdAt.
-     *
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getCreatedAt()
     {
@@ -264,17 +250,15 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param \DateTime $createdAt
+     * {@inheritDoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->createdAt = $createdAt;
     }
 
     /**
-     * Returns updatedAt.
-     *
-     * @return \DateTime
+     * {@inheritDoc}
      */
     public function getUpdatedAt()
     {
@@ -282,9 +266,9 @@ class Service extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
     }

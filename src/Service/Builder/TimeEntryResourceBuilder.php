@@ -21,123 +21,219 @@
  */
 namespace lrackwitz\mite\Service\Builder;
 
-use lrackwitz\mite\Entities\Resource\AbstractResourceBuilder;
+use lrackwitz\mite\Entities\Resource\BuilderInterface;
 use lrackwitz\mite\Entities\Resource\TimeEntry;
+use lrackwitz\mite\Entities\Resource\TimeEntryInterface;
 
 /**
  * Class TimeEntryResourceBuilder.
  *
  * @package lrackwitz\mite\Service\Builder
  */
-class TimeEntryResourceBuilder extends AbstractResourceBuilder
+class TimeEntryResourceBuilder implements BuilderInterface, TimeEntryInterface
 {
     /**
      * The time entry resource.
      *
-     * @var TimeEntry
+     * @var TimeEntryInterface
      */
     private $timeEntry;
 
-    public function __construct()
+    /**
+     * Creates a new time entry instance.
+     */
+    public function create()
     {
         $this->timeEntry = new TimeEntry();
     }
 
+    /**
+     * Returns the built time entry instance.
+     *
+     * @return TimeEntryInterface
+     */
+    public function getResult()
+    {
+        return $this->timeEntry;
+    }
+
+    /**
+     * Sets the id.
+     *
+     * @param string $id
+     */
     public function setId($id = null)
     {
         $this->timeEntry->setId($id);
     }
 
+    /**
+     * Sets the minutes.
+     *
+     * @param int $minutes
+     */
     public function setMinutes($minutes = null)
     {
         $this->timeEntry->setMinutes($minutes);
     }
 
-    public function setBillable(bool $billable)
-    {
-        $this->timeEntry->setBillable($billable);
-    }
-
-    public function setCustomerId($customerId = null)
-    {
-        $this->timeEntry->setCustomerId($customerId);
-    }
-
-    public function setCustomerName($customerName = null)
-    {
-        $this->timeEntry->setCustomerName($customerName);
-    }
-
+    /**
+     * Sets the at date (format YYYY-MM-DD).
+     *
+     * @param string $dateAt
+     */
     public function setDateAt($dateAt = null)
     {
         $this->timeEntry->setDateAt($dateAt);
     }
 
-    public function setHourlyRate($hourlyRate = null)
-    {
-        $this->timeEntry->setHourlyRate($hourlyRate);
-    }
-
-    public function setLocked(bool $locked)
-    {
-        $this->timeEntry->setLocked($locked);
-    }
-
+    /**
+     * Sets the note.
+     *
+     * @param string $note
+     */
     public function setNote($note = null)
     {
         $this->timeEntry->setNote($note);
     }
 
-    public function setProjectId($projectId = null)
+    /**
+     * Sets the billable flag.
+     *
+     * @param bool $billable
+     */
+    public function setBillable(bool $billable = false)
     {
-        $this->timeEntry->setProjectId($projectId);
+        $this->timeEntry->setBillable($billable);
     }
 
-    public function setProjectName($projectName = null)
+    /**
+     * Sets the locked flag.
+     *
+     * @param bool $locked
+     */
+    public function setLocked(bool $locked = false)
     {
-        $this->timeEntry->setProjectName($projectName);
+        $this->timeEntry->setLocked($locked);
     }
 
+    /**
+     * Sets the revenue.
+     *
+     * @param string $revenue
+     */
     public function setRevenue($revenue = null)
     {
         $this->timeEntry->setRevenue($revenue);
     }
 
-    public function setServiceId($serviceId = null)
+    /**
+     * Sets the hourly rate.
+     *
+     * @param int $hourlyRate
+     */
+    public function setHourlyRate($hourlyRate = null)
     {
-        $this->timeEntry->setServiceId($serviceId);
+        $this->setHourlyRate($hourlyRate);
     }
 
+    /**
+     * Sets the user id.
+     *
+     * @param int $userId
+     */
     public function setUserId($userId = null)
     {
-        $this->timeEntry->setUserId($userId);
+        $this->setUserId($userId);
     }
 
+    /**
+     * Sets the user name.
+     *
+     * @param string $userName
+     */
     public function setUserName($userName = null)
     {
-        $this->timeEntry->setUserName($userName);
+        $this->setUserName($userName);
     }
 
+    /**
+     * Sets the project id.
+     *
+     * @param int $projectId
+     */
+    public function setProjectId($projectId = null)
+    {
+        $this->setUserName($projectId);
+    }
+
+    /**
+     * Sets the project name.
+     *
+     * @param string $projectName
+     */
+    public function setProjectName($projectName = null)
+    {
+        $this->setProjectName($projectName);
+    }
+
+    /**
+     * Sets the customer id.
+     *
+     * @param int $customerId
+     */
+    public function setCustomerId($customerId = null)
+    {
+        $this->setCustomerId($customerId);
+    }
+
+    /**
+     * Sets the customer name.
+     *
+     * @param string $customerName
+     */
+    public function setCustomerName($customerName = null)
+    {
+        $this->setCustomerName($customerName);
+    }
+
+    /**
+     * Sets the service id.
+     *
+     * @param int $serviceId
+     */
+    public function setServiceId($serviceId = null)
+    {
+        $this->setServiceId($serviceId);
+    }
+
+    /**
+     * Sets the service name.
+     *
+     * @param string $serviceName
+     */
     public function setServiceName($serviceName = null)
     {
-        $this->timeEntry->setServiceName($serviceName);
+        $this->setServiceName($serviceName);
     }
 
+    /**
+     * Sets the date and time of creation.
+     *
+     * @param \DateTime $createdAt
+     */
     public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->timeEntry->setCreatedAt($createdAt);
     }
 
+    /**
+     * Sets the date and time of last update.
+     *
+     * @param \DateTime $updatedAt
+     */
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
-        $this->timeEntry->setUpdatedAt($updatedAt);
-    }
-    
-    public function getResult()
-    {
-        $timeEntry = $this->timeEntry;
-        $this->timeEntry = new TimeEntry();
-
-        return $timeEntry;
+        $this->setUpdatedAt($updatedAt);
     }
 }

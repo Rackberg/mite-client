@@ -28,7 +28,7 @@ use lrackwitz\mite\Entities\Loggable;
  *
  * @package lrackwitz\mite\Entities\Resource
  */
-class Account extends Loggable implements ResourceInterface
+class Account extends Loggable implements AccountInterface
 {
     /**
      * The account id.
@@ -122,27 +122,7 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * Returns createdAt.
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Returns id.
-     *
-     * @return int
+     * {@inheritDoc}
      */
     public function getId()
     {
@@ -150,17 +130,15 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param int $id
+     * {@inheritDoc}
      */
-    public function setId($id)
+    public function setId($id = null)
     {
         $this->id = $id;
     }
 
     /**
-     * Returns name.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getName()
     {
@@ -168,17 +146,15 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $name
+     * {@inheritDoc}
      */
-    public function setName($name)
+    public function setName($name = null)
     {
         $this->name = $name;
     }
 
     /**
-     * Returns title.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getTitle()
     {
@@ -186,17 +162,15 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $title
+     * {@inheritDoc}
      */
-    public function setTitle($title)
+    public function setTitle($title = null)
     {
         $this->title = $title;
     }
 
     /**
-     * Returns currency.
-     *
-     * @return string
+     * {@inheritDoc}
      */
     public function getCurrency()
     {
@@ -204,17 +178,31 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param string $currency
+     * {@inheritDoc}
      */
-    public function setCurrency($currency)
+    public function setCurrency($currency = null)
     {
         $this->currency = $currency;
     }
 
     /**
-     * Returns updatedAt.
-     *
-     * @return \DateTime
+     * {@inheritDoc}
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function getUpdatedAt()
     {
@@ -222,9 +210,9 @@ class Account extends Loggable implements ResourceInterface
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * {@inheritDoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
     }

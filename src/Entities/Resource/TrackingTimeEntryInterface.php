@@ -21,7 +21,7 @@
  */
 namespace lrackwitz\mite\Entities\Resource;
 
-interface TrackingTimeEntryInterface extends ResourceInterface
+interface TrackingTimeEntryInterface
 {
     /**
      * Sets the id.
@@ -31,13 +31,6 @@ interface TrackingTimeEntryInterface extends ResourceInterface
     public function setId($id = null);
 
     /**
-     * Returns the id.
-     *
-     * @return int
-     */
-    public function getId();
-
-    /**
      * Sets the minutes.
      *
      * @param int $minutes
@@ -45,23 +38,9 @@ interface TrackingTimeEntryInterface extends ResourceInterface
     public function setMinutes($minutes = null);
 
     /**
-     * Returns the minutes.
-     *
-     * @return int
-     */
-    public function getMinutes();
-
-    /**
      * Sets the date and time sind start of tracking.
      *
      * @param \DateTime $since
      */
     public function setSince(\DateTime $since = null);
-
-    /**
-     * Returns the date and time since start of tracking.
-     *
-     * @return \DateTime
-     */
-    public function getSince();
 }

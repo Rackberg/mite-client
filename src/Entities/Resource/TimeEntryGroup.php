@@ -21,12 +21,14 @@
  */
 namespace lrackwitz\mite\Entities;
 
+use lrackwitz\mite\Entities\Resource\TimeEntryGroupInterface;
+
 /**
  * Class TimeEntryGroup.
  *
  * @package lrackwitz\mite\Entities
  */
-class TimeEntryGroup extends Loggable
+class TimeEntryGroup extends Loggable implements TimeEntryGroupInterface
 {
     /**
      * The number of minutes.
