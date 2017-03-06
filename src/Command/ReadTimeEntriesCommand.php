@@ -186,6 +186,12 @@ class ReadTimeEntriesCommand extends Command
                 InputOption::VALUE_OPTIONAL,
                 'Shows only the project name of current tracking entry.'
             )
+            ->addOption(
+                'show-id-only',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Shows only the id of the current tracking entry.'
+            )
         ;
     }
 
@@ -227,6 +233,8 @@ class ReadTimeEntriesCommand extends Command
             $this->showServiceOnly($response, $output, $trackingTimeEntry);
         } elseif ($input->getOption('show-project-only')) {
             $this->showProjectOnly($response, $output, $trackingTimeEntry);
+        } elseif ($input->getOption('show-id-only')) {
+            $this->showIdOnly($response, $output, $trackingTimeEntry);
         } else {
             $this->outputDefault($response, $output, $trackingTimeEntry);
         }
@@ -361,6 +369,30 @@ class ReadTimeEntriesCommand extends Command
       if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
         if (!empty($item->getProjectName())) {
           $output->writeln($item->getProjectName());
+        }
+        break;
+      }
+    }
+  }
+
+  private function showIdOnly(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null) {
+    $items = json_decode($response->getBody()->getContents(), true);
+
+    $timeEntryBuilder = $this->commandHelper
+      ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
+
+    foreach ($items as $key => &$item) {
+      $isTracking = FALSE;
+
+      /** @var TimeEntry $item */
+      $item = $this->commandHelper->getDirector()->build(
+        $timeEntryBuilder,
+        $item['time_entry']
+      );
+
+      if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
+        if (!empty($item->getId())) {
+          $output->writeln($item->getId());
         }
         break;
       }
