@@ -21,17 +21,13 @@
  */
 namespace lrackwitz\mite\Command;
 
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use lrackwitz\mite\Entities\Resource\ResourceBuilderInterface;
 use lrackwitz\mite\Entities\Resource\TimeEntry;
 use lrackwitz\mite\Entities\Resource\TrackingTimeEntry;
 use lrackwitz\mite\Entities\TimeEntryGroup;
 use lrackwitz\mite\Service\AccountResourceBuilder;
 use lrackwitz\mite\Service\CommandHelper;
-use lrackwitz\mite\Service\MiteClient;
 use lrackwitz\mite\Service\RequestFactory;
-use lrackwitz\mite\Service\ResourceDirector;
 use lrackwitz\mite\Service\TimeEntryGroupBuilder;
 use lrackwitz\mite\Service\TimeEntryResourceBuilder;
 use Symfony\Component\Console\Command\Command;
@@ -39,7 +35,6 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableStyle;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -64,7 +59,7 @@ class ReadTimeEntriesCommand extends Command
      * @var RequestFactory
      */
     private $factory;
-    
+
     public function __construct(
         CommandHelper $commandHelper,
         RequestFactory $factory
@@ -191,28 +186,36 @@ class ReadTimeEntriesCommand extends Command
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Shows only the id of the current tracking entry.'
-            )
-        ;
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $options = array_filter($input->getOptions(), function ($value) {
-            if ($value == null) {
-                return false;
+        $options = array_filter(
+            $input->getOptions(),
+            function ($value) {
+                if ($value == null) {
+                    return false;
+                }
+
+                return true;
             }
-            return true;
-        });
+        );
 
-        array_walk($options, function (&$value, $key) {
-            if (is_array($value) && !empty($value)) {
-                $value = join(',', $value);
+        array_walk(
+            $options,
+            function (&$value, $key) {
+                if (is_array($value) && !empty($value)) {
+                    $value = join(',', $value);
+                }
+
+                $value = sprintf('%s=%s', $key, $value);
             }
+        );
 
-            $value = sprintf('%s=%s', $key, $value);
-        });
-
-        $response = $this->commandHelper->getClient()->readTimeEntries($options);
+        $response = $this->commandHelper->getClient()->readTimeEntries(
+            $options
+        );
 
         $trackingTimeEntry = $this->getTrackingTimeEntry();
 
@@ -245,7 +248,8 @@ class ReadTimeEntriesCommand extends Command
         $timeEntry = null;
 
         $builder = $this->commandHelper
-            ->getResourceBuilderFactory()->createTrackingTimeEntryResourceBuilder();
+            ->getResourceBuilderFactory()
+            ->createTrackingTimeEntryResourceBuilder();
 
         $response = $this->commandHelper->getClient()->readTracker();
         if ($response->getStatusCode() == 200) {
@@ -260,12 +264,16 @@ class ReadTimeEntriesCommand extends Command
         return $timeEntry;
     }
 
-    private function outputAsGroups(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null)
-    {
+    private function outputAsGroups(
+        Response $response,
+        OutputInterface $output,
+        TrackingTimeEntry $trackingTimeEntry = null
+    ) {
         $groups = json_decode($response->getBody()->getContents(), true);
 
         $timeEntryGroupBuilder = $this->commandHelper
-            ->getResourceBuilderFactory()->createTimeEntryGroupResourceBuilder();
+            ->getResourceBuilderFactory()->createTimeEntryGroupResourceBuilder(
+            );
 
         foreach ($groups as &$group) {
             /** @var TimeEntryGroup $group */
@@ -277,12 +285,23 @@ class ReadTimeEntriesCommand extends Command
         }
     }
 
-    private function outputDefault(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null)
-    {
+    private function outputDefault(
+        Response $response,
+        OutputInterface $output,
+        TrackingTimeEntry $trackingTimeEntry = null
+    ) {
         $items = json_decode($response->getBody()->getContents(), true);
 
         $table = new Table($output);
-        $table->setHeaders(['ID', 'Project / Comment', 'Service', 'Time Tracked', 'Tracking']);
+        $table->setHeaders(
+            [
+                'ID',
+                'Project / Comment',
+                'Service',
+                'Time Tracked',
+                'Tracking',
+            ]
+        );
 
         $formatter = $this->getHelper('formatter');
 
@@ -301,12 +320,34 @@ class ReadTimeEntriesCommand extends Command
                 $item['time_entry']
             );
 
-            if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
+            if ($trackingTimeEntry && $item->getId(
+                ) == $trackingTimeEntry->getId()
+            ) {
                 $isTracking = true;
             }
 
-            $table->addRow([$item->getId(), 'Project: ' . $item->getProjectName(), $item->getServiceName(), $isTracking ? '<fg=cyan>' . $this->commandHelper->convertMinutesToTime($trackingTimeEntry->getMinutes()) . '+</>' : $this->commandHelper->convertMinutesToTime($item->getMinutes()), $isTracking ? '<fg=cyan>Running</>' : '-']);
-            $table->addRow(['', new TableCell('Comment: ' . $formatter->truncate($item->getNote(), 50), ['colspan' => 4])]);
+            $table->addRow(
+                [
+                    $item->getId(),
+                    'Project: '.$item->getProjectName(),
+                    $item->getServiceName(),
+                    $isTracking ? '<fg=cyan>'.$this->commandHelper->convertMinutesToTime(
+                            $trackingTimeEntry->getMinutes()
+                        ).'+</>' : $this->commandHelper->convertMinutesToTime(
+                        $item->getMinutes()
+                    ),
+                    $isTracking ? '<fg=cyan>Running</>' : '-',
+                ]
+            );
+            $table->addRow(
+                [
+                    '',
+                    new TableCell(
+                        'Comment: '.$formatter->truncate($item->getNote(), 50),
+                        ['colspan' => 4]
+                    ),
+                ]
+            );
 
             if ($num_items - 1 > $key) {
                 $table->addRow(new TableSeparator());
@@ -322,80 +363,104 @@ class ReadTimeEntriesCommand extends Command
         $rightAligned = new TableStyle();
         $rightAligned->setPadType(STR_PAD_LEFT);
         $table->addRow(new TableSeparator());
-        $table->addRow([new TableCell('<fg=white>Sum of tracked time shown:</> ', ['colspan' => 3]), new TableCell('<fg=white>' . $this->commandHelper->convertMinutesToTime($sum_minutes) . '</>', ['colspan' => 2])]);
+        $table->addRow(
+            [
+                new TableCell(
+                    '<fg=white>Sum of tracked time shown:</> ',
+                    ['colspan' => 3]
+                ),
+                new TableCell(
+                    '<fg=white>'.$this->commandHelper->convertMinutesToTime(
+                        $sum_minutes
+                    ).'</>', ['colspan' => 2]
+                ),
+            ]
+        );
 
         $table->render();
     }
 
-    private function showServiceOnly(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null) {
+    private function showServiceOnly(
+        Response $response,
+        OutputInterface $output,
+        TrackingTimeEntry $trackingTimeEntry = null
+    ) {
         $items = json_decode($response->getBody()->getContents(), true);
 
         $timeEntryBuilder = $this->commandHelper
             ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
 
         foreach ($items as $key => &$item) {
-          $isTracking = FALSE;
+            $isTracking = false;
 
-          /** @var TimeEntry $item */
-          $item = $this->commandHelper->getDirector()->build(
-            $timeEntryBuilder,
-            $item['time_entry']
-          );
+            /** @var TimeEntry $item */
+            $item = $this->commandHelper->getDirector()->build(
+                $timeEntryBuilder,
+                $item['time_entry']
+            );
 
-          if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
-            if (!empty($item->getServiceName())) {
-              $output->writeln($item->getServiceName());
+            if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
+                if (!empty($item->getServiceName())) {
+                    $output->writeln($item->getServiceName());
+                }
+                break;
             }
-            break;
-          }
         }
     }
 
-  private function showProjectOnly(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null) {
-    $items = json_decode($response->getBody()->getContents(), true);
+    private function showProjectOnly(
+        Response $response,
+        OutputInterface $output,
+        TrackingTimeEntry $trackingTimeEntry = null
+    ) {
+        $items = json_decode($response->getBody()->getContents(), true);
 
-    $timeEntryBuilder = $this->commandHelper
-      ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
+        $timeEntryBuilder = $this->commandHelper
+            ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
 
-    foreach ($items as $key => &$item) {
-      $isTracking = FALSE;
+        foreach ($items as $key => &$item) {
+            $isTracking = false;
 
-      /** @var TimeEntry $item */
-      $item = $this->commandHelper->getDirector()->build(
-        $timeEntryBuilder,
-        $item['time_entry']
-      );
+            /** @var TimeEntry $item */
+            $item = $this->commandHelper->getDirector()->build(
+                $timeEntryBuilder,
+                $item['time_entry']
+            );
 
-      if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
-        if (!empty($item->getProjectName())) {
-          $output->writeln($item->getProjectName());
+            if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
+                if (!empty($item->getProjectName())) {
+                    $output->writeln($item->getProjectName());
+                }
+                break;
+            }
         }
-        break;
-      }
     }
-  }
 
-  private function showIdOnly(Response $response, OutputInterface $output, TrackingTimeEntry $trackingTimeEntry = null) {
-    $items = json_decode($response->getBody()->getContents(), true);
+    private function showIdOnly(
+        Response $response,
+        OutputInterface $output,
+        TrackingTimeEntry $trackingTimeEntry = null
+    ) {
+        $items = json_decode($response->getBody()->getContents(), true);
 
-    $timeEntryBuilder = $this->commandHelper
-      ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
+        $timeEntryBuilder = $this->commandHelper
+            ->getResourceBuilderFactory()->createTimeEntryResourceBuilder();
 
-    foreach ($items as $key => &$item) {
-      $isTracking = FALSE;
+        foreach ($items as $key => &$item) {
+            $isTracking = false;
 
-      /** @var TimeEntry $item */
-      $item = $this->commandHelper->getDirector()->build(
-        $timeEntryBuilder,
-        $item['time_entry']
-      );
+            /** @var TimeEntry $item */
+            $item = $this->commandHelper->getDirector()->build(
+                $timeEntryBuilder,
+                $item['time_entry']
+            );
 
-      if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
-        if (!empty($item->getId())) {
-          $output->writeln($item->getId());
+            if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
+                if (!empty($item->getId())) {
+                    $output->writeln($item->getId());
+                }
+                break;
+            }
         }
-        break;
-      }
     }
-  }
 }
