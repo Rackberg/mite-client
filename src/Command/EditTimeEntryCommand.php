@@ -134,7 +134,7 @@ class EditTimeEntryCommand extends Command
         $options = [];
 
         if ($timeEntry) {
-            $output->writeln('Current project is: <info>' . $timeEntry->getProjectName() . '</info>');
+            $output->writeln('Current project is: <info>' . $timeEntry->getFormattedNameWithCustomer() . '</info>');
 
             $question = new ConfirmationQuestion(
                 'Would you like to change the project? [default is "n"] ',
