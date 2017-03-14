@@ -572,6 +572,10 @@ class TimeEntry extends Loggable implements ResourceInterface
      */
     public function getFormattedNameWithCustomer($format = '%s (%s)')
     {
-        return trim(sprintf($format, $this->projectName, $this->customerName));
+        if (!empty($this->projectName) && !empty($this->customerName)) {
+            return trim(
+                sprintf($format, $this->projectName, $this->customerName)
+            );
+        }
     }
 }
