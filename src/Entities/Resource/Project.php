@@ -419,4 +419,16 @@ class Project extends Loggable implements ResourceInterface
     {
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * Returns the project name with customer name in a pre formatted string.
+     *
+     * @param string $format The string format. Defaults to "%s (%s)"
+     *
+     * @return string The formatted string containing the project name and customer name.
+     */
+    public function getFormattedNameWithCustomer($format = '%s (%s)')
+    {
+        return trim(sprintf($format, $this->getName(), $this->getCustomerName()));
+    }
 }

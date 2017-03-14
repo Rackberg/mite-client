@@ -562,4 +562,16 @@ class TimeEntry extends Loggable implements ResourceInterface
     {
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * Returns the formatted string containing the name and customer name.
+     *
+     * @param string $format The format string.
+     *
+     * @return string The formatted string.
+     */
+    public function getFormattedNameWithCustomer($format = '%s (%s)')
+    {
+        return trim(sprintf($format, $this->projectName, $this->customerName));
+    }
 }

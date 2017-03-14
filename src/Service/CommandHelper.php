@@ -80,7 +80,7 @@ class CommandHelper
             foreach ($data as &$project) {
                 /** @var Project $project */
                 $project = $this->director->build($projectBuilder, $project['project']);
-                $projects[$project->getId()] = $project->getName();
+                $projects[$project->getId()] = $project->getFormattedNameWithCustomer();
             }
             $question->setAutocompleterValues($projects);
         }

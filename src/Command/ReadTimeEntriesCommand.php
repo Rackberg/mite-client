@@ -297,6 +297,7 @@ class ReadTimeEntriesCommand extends Command
             [
                 'ID',
                 'Project / Comment',
+                'Customer',
                 'Service',
                 'Time Tracked',
                 'Tracking',
@@ -320,22 +321,19 @@ class ReadTimeEntriesCommand extends Command
                 $item['time_entry']
             );
 
-            if ($trackingTimeEntry && $item->getId(
-                ) == $trackingTimeEntry->getId()
-            ) {
+            if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
                 $isTracking = true;
             }
 
             $table->addRow(
                 [
                     $item->getId(),
-                    'Project: '.$item->getProjectName(),
+                    'Project: ' . $item->getProjectName(),
+                    $item->getCustomerName(),
                     $item->getServiceName(),
-                    $isTracking ? '<fg=cyan>'.$this->commandHelper->convertMinutesToTime(
-                            $trackingTimeEntry->getMinutes()
-                        ).'+</>' : $this->commandHelper->convertMinutesToTime(
-                        $item->getMinutes()
-                    ),
+                    $isTracking
+                        ? '<fg=cyan>'.$this->commandHelper->convertMinutesToTime($trackingTimeEntry->getMinutes()).'+</>'
+                        : $this->commandHelper->convertMinutesToTime($item->getMinutes()),
                     $isTracking ? '<fg=cyan>Running</>' : '-',
                 ]
             );
@@ -370,9 +368,8 @@ class ReadTimeEntriesCommand extends Command
                     ['colspan' => 3]
                 ),
                 new TableCell(
-                    '<fg=white>'.$this->commandHelper->convertMinutesToTime(
-                        $sum_minutes
-                    ).'</>', ['colspan' => 2]
+                    '<fg=white>'.$this->commandHelper->convertMinutesToTime($sum_minutes).'</>',
+                    ['colspan' => 2]
                 ),
             ]
         );
@@ -428,8 +425,9 @@ class ReadTimeEntriesCommand extends Command
             );
 
             if ($trackingTimeEntry && $item->getId() == $trackingTimeEntry->getId()) {
-                if (!empty($item->getProjectName())) {
-                    $output->writeln($item->getProjectName());
+                $formatted_name = $item->getFormattedNameWithCustomer();
+                if (!empty($formatted_name)) {
+                    $output->writeln($formatted_name);
                 }
                 break;
             }
