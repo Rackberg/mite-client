@@ -365,7 +365,7 @@ class ReadTimeEntriesCommand extends Command
             [
                 new TableCell(
                     '<fg=white>Sum of tracked time shown:</> ',
-                    ['colspan' => 3]
+                    ['colspan' => 4]
                 ),
                 new TableCell(
                     '<fg=white>'.$this->commandHelper->convertMinutesToTime($sum_minutes).'</>',
