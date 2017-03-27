@@ -90,10 +90,15 @@ class ReadAccountCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $response = $this->client->send($this->request);
-        $data = json_decode($response->getBody()->getContents(), true);
-        
-        $account = $this->director->build($this->builder, array_shift($data));
+        if ($response) {
+            $data = json_decode($response->getBody()->getContents(), true);
 
-        $output->writeln($account->__toString());
+            $account = $this->director->build(
+                $this->builder,
+                array_shift($data)
+            );
+
+            $output->writeln($account->__toString());
+        }
     }
 }

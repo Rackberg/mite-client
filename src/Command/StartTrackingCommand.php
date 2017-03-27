@@ -69,7 +69,7 @@ class StartTrackingCommand extends Command
 
         $response = $this->commandHelper->getClient()->startTracking(new TimeEntry($id));
 
-        if ($response->getStatusCode() == 200) {
+        if ($response && $response->getStatusCode() == 200) {
             $message = sprintf(
                 'Started tracking of time entry (<info>ID %s</info>).',
                 $id

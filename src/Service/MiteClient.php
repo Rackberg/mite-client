@@ -22,6 +22,7 @@
 namespace lrackwitz\mite\Service;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Request;
 use lrackwitz\mite\Entities\Resource\ResourceInterface;
 use lrackwitz\mite\Entities\Resource\TimeEntry;
@@ -110,7 +111,15 @@ class MiteClient
         if ($json) {
             $options['json'] = $json;
         }
-        return $this->client->send($request, $options);
+
+        $response = null;
+        try {
+            $response = $this->client->send($request, $options);
+        } catch (ConnectException $e) {
+            // TODO: Add logging to a log file.
+        }
+
+        return $response;
     }
 
     private function getBaseUri()

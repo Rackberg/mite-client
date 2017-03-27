@@ -216,10 +216,16 @@ class ReadTimeEntriesCommand extends Command
         $response = $this->commandHelper->getClient()->readTimeEntries(
             $options
         );
+        if ($response) {
+            $trackingTimeEntry = $this->getTrackingTimeEntry();
 
-        $trackingTimeEntry = $this->getTrackingTimeEntry();
-
-        $this->outputResponse($response, $input, $output, $trackingTimeEntry);
+            $this->outputResponse(
+                $response,
+                $input,
+                $output,
+                $trackingTimeEntry
+            );
+        }
     }
 
     private function outputResponse(

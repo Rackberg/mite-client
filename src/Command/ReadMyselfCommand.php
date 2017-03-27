@@ -69,7 +69,9 @@ class ReadMyselfCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $response = $this->client->send($this->request);
-        
-        $output->writeln($response->getBody()->getContents());
+
+        if ($response) {
+            $output->writeln($response->getBody()->getContents());
+        }
     }
 }

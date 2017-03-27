@@ -120,7 +120,9 @@ class EditTimeEntryCommand extends Command
         $response = $this->commandHelper->getClient()
             ->editTimeEntry($id, $options);
 
-        $output->writeln($response->getBody()->getContents());
+        if ($response) {
+            $output->writeln($response->getBody()->getContents());
+        }
     }
 
     private function askQuestions(InputInterface $input, OutputInterface $output)

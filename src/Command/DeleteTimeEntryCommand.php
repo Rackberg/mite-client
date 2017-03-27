@@ -82,6 +82,8 @@ class DeleteTimeEntryCommand extends Command
 
         $response = $this->client->deleteTimeEntry(new TimeEntry($id));
 
-        $output->writeln($response->getBody()->getContents());
+        if ($response) {
+            $output->writeln($response->getBody()->getContents());
+        }
     }
 }

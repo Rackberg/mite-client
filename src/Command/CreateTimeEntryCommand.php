@@ -136,7 +136,7 @@ class CreateTimeEntryCommand extends Command
             isset($options['note']) ? $options['note'] : null
         );
 
-        if ($response->getStatusCode() != 201) { // HTTP 201 = Created
+        if ($response && $response->getStatusCode() != 201) { // HTTP 201 = Created
             $output->writeln(
                 '<error>Failed to create a new time entry!</error>'
             );

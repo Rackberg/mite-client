@@ -73,35 +73,41 @@ class ReadTrackerCommand extends Command
     {
         $response = $this->commandHelper->getClient()->readTracker();
 
-        $data = json_decode($response->getBody()->getContents(), true);
+        if ($response) {
+            $data = json_decode($response->getBody()->getContents(), true);
 
-        if (!empty($data['tracker']) &&
-            isset($data['tracker']['tracking_time_entry'])
-        ) {
-            $builder = $this->commandHelper->getResourceBuilderFactory()
-                ->createTrackingTimeEntryResourceBuilder();
+            if (!empty($data['tracker']) &&
+                isset($data['tracker']['tracking_time_entry'])
+            ) {
+                $builder = $this->commandHelper->getResourceBuilderFactory()
+                    ->createTrackingTimeEntryResourceBuilder();
 
-            /** @var TrackingTimeEntry $trackingTimeEntry */
-            $trackingTimeEntry = $this->commandHelper->getDirector()->build(
-                $builder,
-                $data['tracker']['tracking_time_entry']
-            );
-
-            if ($input->getOption('time')) {
-                $output->writeln(
-                    $this->commandHelper
-                        ->convertMinutesToTime($trackingTimeEntry->getMinutes())
+                /** @var TrackingTimeEntry $trackingTimeEntry */
+                $trackingTimeEntry = $this->commandHelper->getDirector()->build(
+                    $builder,
+                    $data['tracker']['tracking_time_entry']
                 );
-            } else {
-                $output->writeln($trackingTimeEntry->__toString());
-            }
-        } else {
-            if ($input->getOption('time')) {
-                // Output nothing
-                return;
-            }
 
-            $output->writeln('It seems that there is currently <info>no tracking</info> active.');
+                if ($input->getOption('time')) {
+                    $output->writeln(
+                        $this->commandHelper
+                            ->convertMinutesToTime(
+                                $trackingTimeEntry->getMinutes()
+                            )
+                    );
+                } else {
+                    $output->writeln($trackingTimeEntry->__toString());
+                }
+            } else {
+                if ($input->getOption('time')) {
+                    // Output nothing
+                    return;
+                }
+
+                $output->writeln(
+                    'It seems that there is currently <info>no tracking</info> active.'
+                );
+            }
         }
     }
 }
