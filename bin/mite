@@ -25,8 +25,12 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 set_time_limit(0);
 
-// Include composer autoloader
-require_once __DIR__ . '/../../../autoload.php';
+// Include composer autoloader.
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
+    require_once __DIR__ . '/../../../autoload.php';
+}
 
 $input = new Symfony\Component\Console\Input\ArgvInput();
 $output = new Symfony\Component\Console\Output\ConsoleOutput();
