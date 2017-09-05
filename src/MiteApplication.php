@@ -21,14 +21,9 @@
  */
 namespace lrackwitz\mite;
 
-use lrackwitz\mite\Command\ReadAccountCommand;
 use lrackwitz\mite\Entities\DependencyCollection;
 use lrackwitz\mite\Entities\PackageDependency;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Application;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 /**
  * Class MiteApplication.
@@ -37,11 +32,10 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
  */
 class MiteApplication extends Application
 {
-    private $environment;
-    
+
     public function __construct()
     {
-        parent::__construct('Mite Console Application (by Lars Rackwitz-Rosenberg)', '0.1.0');
+        parent::__construct('Mite Console Application (by Lars Rosenberg <rackwitz.lars@gmail.com>)', '0.2.0');
     }
 
     /**

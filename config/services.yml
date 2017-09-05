@@ -11,6 +11,7 @@ services:
             - [add, ['@command.read_tracker']]
             - [add, ['@command.stop_tracking']]
             - [add, ['@command.start_tracking']]
+            - [add, ['@command.split_time_entry']]
 
     mite.client:
         class: lrackwitz\mite\Service\MiteClient
@@ -46,6 +47,27 @@ services:
 
     resource_builder_factory:
         class: lrackwitz\mite\Service\ResourceBuilderFactory
+
+    time_entry.manager:
+        class: lrackwitz\mite\Service\Manager\TimeEntryManager
+        arguments:
+            - '@mite.client'
+            - '@resource_builder_factory'
+            - '@resource_director'
+
+    project.manager:
+        class: lrackwitz\mite\Service\Manager\ProjectManager
+        arguments:
+            - '@mite.client'
+            - '@resource_builder_factory'
+            - '@resource_director'
+
+    service.manager:
+        class: lrackwitz\mite\Service\Manager\ServiceManager
+        arguments:
+            - '@mite.client'
+            - '@resource_builder_factory'
+            - '@resource_director'
 
     request_factory:
         class: lrackwitz\mite\Service\RequestFactory
@@ -115,6 +137,8 @@ services:
         class: lrackwitz\mite\Command\CreateTimeEntryCommand
         arguments:
             - '@command_helper'
+            - '@project.manager'
+            - '@service.manager'
         tags:
             - { name: console.command }
 
@@ -122,6 +146,7 @@ services:
         class: lrackwitz\mite\Command\EditTimeEntryCommand
         arguments:
             - '@command_helper'
+            - '@time_entry.manager'
         tags:
             - { name: console.command }
 
@@ -130,6 +155,15 @@ services:
         arguments:
             - '@mite.client'
             - '@request_factory'
+        tags:
+            - { name: console.command }
+
+    command.split_time_entry:
+        class: lrackwitz\mite\Command\SplitTimeEntryCommand
+        arguments:
+            - '@command_helper'
+            - '@time_entry.manager'
+            - '@command.create_time_entry'
         tags:
             - { name: console.command }
 
