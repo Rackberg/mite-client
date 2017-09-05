@@ -24,6 +24,8 @@ namespace lrackwitz\mite\Command;
 
 use lrackwitz\mite\Entities\Resource\TimeEntry;
 use lrackwitz\mite\Service\CommandHelper;
+use lrackwitz\mite\Service\Manager\ProjectManager;
+use lrackwitz\mite\Service\Manager\ServiceManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -45,9 +47,29 @@ class CreateTimeEntryCommand extends Command
      */
     private $commandHelper;
 
-    public function __construct(CommandHelper $commandHelper)
+    /**
+     * The project manager.
+     *
+     * @var \lrackwitz\mite\Service\Manager\ProjectManager
+     */
+    private $projectManager;
+
+    /**
+     * The service manager.
+     *
+     * @var \lrackwitz\mite\Service\Manager\ServiceManager
+     */
+    private $serviceManager;
+
+    public function __construct(
+        CommandHelper $commandHelper,
+        ProjectManager $projectManager,
+        ServiceManager $serviceManager
+    )
     {
         $this->commandHelper = $commandHelper;
+        $this->projectManager = $projectManager;
+        $this->serviceManager = $serviceManager;
 
         parent::__construct();
     }
@@ -179,8 +201,9 @@ class CreateTimeEntryCommand extends Command
         // Get the question helper.
         $helper = $this->getHelper('question');
 
-        $question = new Question('Start at minute [0] ', 0);
-        $minutes = $helper->ask($input, $output, $question);
+        $suggested_minutes = $input->getOption('minutes') ?: 0;
+
+        $minutes = $this->commandHelper->askForMinutes($input, $output, $helper, $suggested_minutes);
 
         $question = new ConfirmationQuestion(
             'Start tracking? [y|j, n] ',
@@ -189,28 +212,42 @@ class CreateTimeEntryCommand extends Command
         );
         $startTracking = $helper->ask($input, $output, $question);
 
-        // Ask if we can send the request now.
-        $question = new ConfirmationQuestion(
-            'Execute now (without asking more questions)? [y|j, n] ',
-            true,
-            '/^(y|j)/i'
-        );
-
         // Summarize the options we defined so far.
         $options = [
             'minutes' => $minutes,
             'start_tracking' => $startTracking
         ];
 
-        if ($helper->ask($input, $output, $question)) {
-            return $options;
+        if ($suggested_minutes <= 0) {
+            // Ask if we can send the request now.
+            $question = new ConfirmationQuestion(
+                'Execute now (without asking more questions)? [y|j, n] ',
+                true,
+                '/^(y|j)/i'
+            );
+
+            if ($helper->ask($input, $output, $question)) {
+                return $options;
+            }
         }
 
         // Ask for the project.
-        $project_id = $this->commandHelper->askForProject($input, $output, $helper);
+        $suggested_project_id = $input->getOption('project_id') ?: null;
+        $suggested_project = null;
+        if ($suggested_project_id) {
+            $suggested_project = $this->projectManager->getProject(
+                $suggested_project_id
+            );
+        }
+        $project_id = $this->commandHelper->askForProject($input, $output, $helper, $suggested_project);
 
         // Ask for the service.
-        $service_id = $this->commandHelper->askForService($input, $output, $helper);
+        $suggested_service_id = $input->getOption('service_id') ?: null;
+        $suggested_service = null;
+        if ($suggested_service_id) {
+            $suggested_service = $this->serviceManager->getService($suggested_service_id);
+        }
+        $service_id = $this->commandHelper->askForService($input, $output, $helper, $suggested_service);
 
         // Ask for a note.
         $question = new Question('Take a note (or leave empty) ');

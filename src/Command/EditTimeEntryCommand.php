@@ -21,11 +21,8 @@
  */
 namespace lrackwitz\mite\Command;
 
-use GuzzleHttp\Psr7\Request;
-use lrackwitz\mite\Entities\Resource\TimeEntry;
 use lrackwitz\mite\Service\CommandHelper;
-use lrackwitz\mite\Service\MiteClient;
-use lrackwitz\mite\Service\RequestFactory;
+use lrackwitz\mite\Service\Manager\TimeEntryManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -48,9 +45,19 @@ class EditTimeEntryCommand extends Command
      */
     private $commandHelper;
 
-    public function __construct(CommandHelper $commandHelper)
-    {
+    /**
+     * The time entry manager.
+     *
+     * @var \lrackwitz\mite\Service\Manager\TimeEntryManager
+     */
+    private $manager;
+
+    public function __construct(
+        CommandHelper $commandHelper,
+        TimeEntryManager $manager
+    ) {
         $this->commandHelper = $commandHelper;
+        $this->manager = $manager;
 
         parent::__construct();
     }
@@ -131,7 +138,7 @@ class EditTimeEntryCommand extends Command
         $helper = $this->getHelper('question');
 
         // Get the current time entry.
-        $timeEntry = $this->getTimeEntry($input->getArgument('id'));
+        $timeEntry = $this->manager->getTimeEntry($input->getArgument('id'));
 
         $options = [];
 
@@ -186,30 +193,5 @@ class EditTimeEntryCommand extends Command
         }
 
         return $options;
-    }
-
-    /**
-     * @param $id
-     *
-     * @return TimeEntry
-     */
-    private function getTimeEntry($id)
-    {
-        $timeEntry = null;
-
-        $response = $this->commandHelper->getClient()->readTimeEntry($id);
-        if ($response->getStatusCode() == 200) {
-            $data = json_decode($response->getBody()->getContents(), true);
-            if (isset($data['time_entry'])) {
-                $timeEntryBuilder = $this->commandHelper
-                    ->getResourceBuilderFactory()
-                    ->createTimeEntryResourceBuilder();
-
-                $timeEntry = $this->commandHelper->getDirector()
-                    ->build($timeEntryBuilder, $data['time_entry']);
-            }
-        }
-
-        return $timeEntry;
     }
 }

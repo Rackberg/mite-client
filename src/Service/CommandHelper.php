@@ -69,13 +69,22 @@ class CommandHelper
     public function askForProject(
         InputInterface $input,
         OutputInterface $output,
-        QuestionHelper $helper
+        QuestionHelper $helper,
+        Project $suggestedProject = null
     ) {
-        $projectBuilder = $this->factory->createProjectResourceBuilder();
-        $question = new Question('Which project? ');
+        $questionString = 'Which project? ';
+        $formattedProjectName = null;
+        if ($suggestedProject) {
+            $formattedProjectName = $suggestedProject->getFormattedNameWithCustomer();
+            $questionString .= '[<info>' . $formattedProjectName . '</info>] ';
+        }
+        $question = new Question($questionString, $formattedProjectName);
+
         $projects = [];
         $projectsResponse = $this->client->readProjects();
         if ($projectsResponse->getStatusCode() == 200) {
+            $projectBuilder = $this->factory->createProjectResourceBuilder();
+
             $data = json_decode($projectsResponse->getBody()->getContents(), true);
             foreach ($data as &$project) {
                 /** @var Project $project */
@@ -100,13 +109,21 @@ class CommandHelper
     public function askForService(
         InputInterface $input,
         OutputInterface $output,
-        QuestionHelper $helper
+        QuestionHelper $helper,
+        Service $suggestedService = null
     ) {
-        $serviceBuilder = $this->factory->createServiceResourceBuilder();
-        $question = new Question('Which service? ');
+        $questionString = 'Which service? ';
+        $serviceName = null;
+        if ($suggestedService) {
+            $serviceName = $suggestedService->getName();
+            $questionString .= '[<info>' . $serviceName . '</info>] ';
+        }
+        $question = new Question($questionString, $serviceName);
         $services = [];
         $servicesResponse = $this->client->readServices();
         if ($servicesResponse->getStatusCode() == 200) {
+            $serviceBuilder = $this->factory->createServiceResourceBuilder();
+
             $data = json_decode($servicesResponse->getBody()->getContents(), true);
             foreach ($data as &$service) {
                 /** @var Service $service */
@@ -126,6 +143,18 @@ class CommandHelper
         }
 
         return null;
+    }
+
+    public function askForMinutes(
+        InputInterface $input,
+        OutputInterface $output,
+        QuestionHelper $helper,
+        $suggested_minutes = 0
+    ) {
+        $question = new Question('Start at minute [' . $suggested_minutes . '] ', $suggested_minutes);
+        $minutes = $helper->ask($input, $output, $question);
+
+        return $minutes;
     }
 
     public function convertMinutesToTime($minutes, $format = '%02d:%02d')

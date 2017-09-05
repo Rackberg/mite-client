@@ -220,11 +220,28 @@ class MiteClient
         return $this->send($request);
     }
 
+    public function readProject($project_id)
+    {
+        $request = $this->requestFactory->createRequest(
+            'GET',
+            sprintf('/projects/%s.json', $project_id)
+        );
+        return $this->send($request);
+    }
+
     public function readProjects()
     {
         $request = $this->requestFactory->createRequest(
             'GET',
             '/projects.json'
+        );
+        return $this->send($request);
+    }
+
+    public function readService($service_id) {
+        $request = $this->requestFactory->createRequest(
+            'GET',
+            sprintf('/services/%s.json', $service_id)
         );
         return $this->send($request);
     }
