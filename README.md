@@ -29,6 +29,7 @@ Usage
 - To add a time entry: `mite create [options]`
 - To edit a time entry: `mite edit <id> [options]`
 - To delete a time entry: `mite delete <id>`
+- To split a time entry into more time entries: `mite split <id> <number_new_entries>`
 - To start the tracker for a time entry: `mite start <id>`
 - To stop the tracker for a time entry: `mite stop <id>`
 - To show a list of time entries: `mite times [options]`
@@ -37,7 +38,7 @@ Usage
 
 Author
 ------
-Lars Rackwitz-Rosenberg - <rackwitz.lars@gmail.com>
+Lars Rosenberg - <rackwitz.lars@gmail.com>
 
 License
 -------
